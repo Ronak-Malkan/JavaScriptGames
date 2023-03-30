@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Two Cars</title>
+   <script src="./twoCars.js" defer></script>
+   <style>
+      *{
+         box-sizing: border-box;
+         margin: 0;
+         padding: 0;
+         overflow-y: hidden;
+      }
+      .gameArea{
+         display: block;
+         width: 40%;
+         height: 100vh;
+         margin: auto;
+         background-color: rgb(242, 242, 242);
+         border-left: 3px solid black;
+         border-right: 3px solid black;
+      }
+      .roadLanes{
+         float: left;
+         width: 50%;
+         height: 100vh;
+         background-color: rgb(242, 242, 242);
+      }
+      .leftRoad{
+         border-right: 4px solid rgb(118, 118, 118);
+      }
+      .firstLane, .thirdLane{
+         border-right: 3px dashed black;
+      }
+      .cars{
+         display: inline-block;
+         position: absolute;
+         top: 80%;
+         width: 4vw;
+         height: 6vw;
+         background-image: url("./Car.png");
+         transition: all 200ms linear;
+      }
+      .leftCar{
+         left: 43%;
+      }
+      .rightCar{
+         left: 53%;
+      }
+      .innerRect{
+         display: inline-block;
+         width: 2vw;
+         height: 3vw;
+         margin-top: 1.5vw;
+         margin-left: 1vw;
+         border: 4px solid white;
+      }
+
+      .X{
+         display: inline-block;
+         position: absolute;
+         width: 4vw;
+         height: 4vw;
+         top: -4%;
+         background-color: #dc143c;
+         color: white;
+         border-radius: 4px;
+         text-align: center;
+         font-size: 3vw;
+         padding-top: 0.2vw;
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
+         transition: all 1.6s linear;
+      }
+
+      .O{
+         display: inline-block;
+         position: absolute;
+         width: 4vw;
+         height: 4vw;
+         top: -4%;
+         background-color: #008000;
+         color: white;
+         border-radius: 100%;
+         text-align: center;
+         font-size: 3vw;
+         padding-top: 0.1vw;
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
+         transition: all 1.6s linear;
+      }
+      .score{
+         display: inline-block;
+         position: absolute;
+         top: 100px;
+         left: 87%;
+         z-index: 2;
+         background-color: #3973ac;
+         color: white;
+         padding: 5px;
+         width: 70px;
+         text-align: center;
+         font-weight: bold;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         border-radius: 6px;
+         font-size: 24px;
+      }
+      .Lost{
+         display: none;
+         position: absolute;
+         top: 40%;
+         left: 37.5%;
+         z-index: 3;
+         background-color: #3973ac;
+         color: white;
+         text-align: center;
+         font-weight: bold;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         border-radius: 6px;
+         font-size: 24px;
+         width: 25%;
+         height: 20%;
+         padding-top: 2vh;
+      }
+
+   </style>
+</head>
+<body>
+   <div class="gameArea">
+      <div class="leftRoad roadLanes">
+         <div class="firstLane roadLanes">
+
+         </div>
+         <div class="secondLane roadLanes">
+
+         </div>
+      </div>
+      <div class="rightRoad roadLanes">
+         <div class="thirdLane roadLanes">
+
+         </div>
+         <div class="fourthLane roadLanes">
+
+         </div>
+      </div>
+   </div>
+   <div class="cars rightCar">
+   </div>
+   <div class="cars leftCar">
+   </div>
+   <div class="score">0</div>
+   <div class="Lost">Your score<br/><div id="score" style="font-size: 50px;margin-top: 2vh;">8</div></div>
+</body>
+</html>
