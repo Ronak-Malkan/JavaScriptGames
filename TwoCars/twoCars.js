@@ -7,6 +7,9 @@ let speed = 350;
 let gameOverVar = false;
 let score = 0;
 
+//change speed every 3s
+let speedChangeTime = 100;
+
 // Left Road Variables --------------------------------------------------
 
 const leftCar = document.querySelector(".leftCar");
@@ -98,9 +101,18 @@ function keyDownHandler(e){
 //this function is the controller function, it is used to create obstacles, check whether game is over, etc
 async function controller(){
 
+   //speed change code block
+   if(speedChangeTime <=0){
+      speed += 1;
+      speedChangeTime = 100;
+   }
+   speedChangeTime -= 20;
+
+
+
    //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
    let maxTime = (13/100) * (document.body.offsetWidth/speed) * 1000;
-   // min time is set such that obstacle is 10vw + 60px away from the earlier obstacle
+   // min time is set such that obstacle is 10vw away from the earlier obstacle
    let minTime = (10 * document.body.offsetWidth)*1000 /(100*speed);
 
    //for creating obstacles,it checks whether the time for creating obstacles is up, then calls createObs and sets next random time
