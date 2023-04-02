@@ -2,9 +2,10 @@
 
 const scoreboard = document.querySelector(".score");
 
+let speed = 350;
+
 let gameOverVar = false;
 let score = 0;
-
 
 // Left Road Variables --------------------------------------------------
 
@@ -38,6 +39,12 @@ let lane3X = [];
 let lane4X = [];
 let lane3O = [];
 let lane4O = [];
+
+
+// Initialisation -----------------------------------------------------------------------------------------------------------
+
+rightCar.style.bottom = `${6*document.body.offsetWidth/200}px`;
+leftCar.style.bottom = `${6*document.body.offsetWidth/200}px`;
 
 // set Intervals ------------------------------------------------------------------------------------------------------------
 
@@ -91,14 +98,19 @@ function keyDownHandler(e){
 //this function is the controller function, it is used to create obstacles, check whether game is over, etc
 async function controller(){
 
+   //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
+   let maxTime = (13/100) * (document.body.offsetWidth/speed) * 1000;
+   // min time is set such that obstacle is 10vw + 60px away from the earlier obstacle
+   let minTime = (10 * document.body.offsetWidth)*1000 /(100*speed);
+
    //for creating obstacles,it checks whether the time for creating obstacles is up, then calls createObs and sets next random time
    if(createLeftObsTime <= 0){
-      createLeftObsTime = Math.floor(Math.random() * (400 - 300) + 300);
+      createLeftObsTime = Math.floor(Math.random() * (maxTime - minTime) + minTime);
       createObs("left");
    }
    if(createRightObsTime <= 0){
       createObs("right");
-      createRightObsTime = Math.floor(Math.random() * (400 - 300) + 300);
+      createRightObsTime = Math.floor(Math.random() * (maxTime - minTime) + minTime);
    }
    createRightObsTime -= 20;
    createLeftObsTime -= 20;
@@ -147,6 +159,11 @@ async function createO(road){
    const tempObs = document.createElement("div");
    tempObs.classList.add("O");
    tempObs.textContent = "O";
+
+   //set the transition time according to the screen height
+   let transitionTime = document.body.offsetHeight/speed;
+   tempObs.style.transition = `all ${transitionTime}s linear`;
+
    // decides which lane to put the O in, for both roads. For left road 0 means Lane1, 1 means Lane2 and for right road 0,1 is lane 3,4 resp.
    let lane = Math.floor(Math.random() * 2);
    if(road=="left"){
@@ -185,6 +202,11 @@ async function createX(road){
    const tempObs = document.createElement("div");
    tempObs.classList.add("X");
    tempObs.textContent = "X";
+
+   //set the transition time according to the screen
+   let transitionTime = document.body.offsetHeight/speed;
+   tempObs.style.transition = `all ${transitionTime}s linear`;
+
    let lane = Math.floor(Math.random() * 2);
    if(road=="left"){
       if(lane==0){
@@ -402,6 +424,11 @@ async function checkHitO(){
 //game over
 function gameOver(){
    if(!gameOverVar){ 
+
+      //remove event listeners and intervals
+      clearInterval(mainInterval);
+      document.removeEventListener("keydown", keyDownHandler);
+
       //Lost is an div element which pop ups when player loses, it shows the score
       document.querySelector(".Lost").style.display = "inline-block";
       document.querySelector("#score").textContent = score;
