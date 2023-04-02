@@ -10,3 +10,4 @@ This is a game I used play, it's actually called Two cars, you can find it on th
 3. Points are given based on number of Os you have hit.
 4. For moving the Left Car, use A and D keys.
 5. For moving the Right Car, use the ArrowRight and ArrowLeft keys.
+6. Speed increases with time.
