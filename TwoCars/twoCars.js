@@ -286,8 +286,7 @@ async function collisionWithX(){
                (leftCar.offsetTop + leftCar.offsetHeight > lane1X[i].offsetTop && leftCar.offsetTop + leftCar.offsetHeight < lane1X[i].offsetTop + lane1X[i].offsetHeight)
             )
          {
-            //as soon as X is hit, stop it's movement. So that user can see why did the game end
-            lane1X[i].style.top = `${lane1X[i].offsetTop}px`;
+            lane1X[i].classList.add("animateEnlarge");
             gameOver();
          }
       }
@@ -304,7 +303,7 @@ async function collisionWithX(){
                (leftCar.offsetTop + leftCar.offsetHeight > lane2X[i].offsetTop && leftCar.offsetTop + leftCar.offsetHeight < lane2X[i].offsetTop + lane2X[i].offsetHeight)
             )
          {
-            lane2X[i].style.top = `${lane2X[i].offsetTop}px`;
+            lane2X[i].classList.add("animateEnlarge");
             gameOver();
          }
       }
@@ -321,7 +320,7 @@ async function collisionWithX(){
                (leftCar.offsetTop + leftCar.offsetHeight > lane3X[i].offsetTop && leftCar.offsetTop + leftCar.offsetHeight < lane3X[i].offsetTop + lane3X[i].offsetHeight)
             )
          {
-            lane3X[i].style.top = `${lane3X[i].offsetTop}px`;
+            lane3X[i].classList.add("animateEnlarge");
             gameOver();
          }
       }
@@ -338,7 +337,7 @@ async function collisionWithX(){
                (leftCar.offsetTop + leftCar.offsetHeight > lane4X[i].offsetTop && leftCar.offsetTop + leftCar.offsetHeight < lane4X[i].offsetTop + lane4X[i].offsetHeight)
             )
          {
-            lane4X[i].style.top = `${lane4X[i].offsetTop}px`;
+            lane4X[i].classList.add("animateEnlarge");
             gameOver();
          }
       }
@@ -349,19 +348,19 @@ async function collisionWithX(){
 // checked if the car missed any Os, if so then game is over
 async function checkMissedO(){
    if(lane1O.length >= 1 && lane1O[0].offsetTop > leftCar.offsetTop + leftCar.offsetHeight){
-      lane1O[0].style.top = `${lane1O[0].offsetTop}px`;
+      lane1O[0].classList.add("animateEnlarge");
       gameOver();
    }
    if(lane2O.length >= 1 && lane2O[0].offsetTop > leftCar.offsetTop + leftCar.offsetHeight){
-      lane2O[0].style.top = `${lane2O[0].offsetTop}px`;
+      lane2O[0].classList.add("animateEnlarge");
       gameOver();
    }
    if( lane3O.length >= 1 && lane3O[0].offsetTop > rightCar.offsetTop + rightCar.offsetHeight){
-      lane3O[0].style.top = `${lane3O[0].offsetTop}px`;
+      lane3O[0].classList.add("animateEnlarge");
       gameOver();
    }
    if( lane4O.length >= 1 && lane4O[0].offsetTop > rightCar.offsetTop + rightCar.offsetHeight){
-      lane4O[0].style.top = `${lane4O[0].offsetTop}px`;
+      lane4O[0].classList.add("animateEnlarge");
       gameOver();
    }
 }
@@ -433,9 +432,39 @@ async function checkHitO(){
 }
 
 
+function stopObstacles(){
+   for(let i=0; i<lane1X.length; i++){
+      lane1X[i].style.top = `${lane1X[i].offsetTop}px`;
+   }
+   for(let i=0; i<lane1O.length; i++){
+      lane1O[i].style.top = `${lane1O[i].offsetTop}px`;
+   }
+   for(let i=0; i<lane2X.length; i++){
+      lane2X[i].style.top = `${lane2X[i].offsetTop}px`;
+   }
+   for(let i=0; i<lane2O.length; i++){
+      lane2O[i].style.top = `${lane2O[i].offsetTop}px`;
+   }
+   for(let i=0; i<lane3X.length; i++){
+      lane3X[i].style.top = `${lane3X[i].offsetTop}px`;
+   }
+   for(let i=0; i<lane3O.length; i++){
+      lane3O[i].style.top = `${lane3O[i].offsetTop}px`;
+   }
+   for(let i=0; i<lane4X.length; i++){
+      lane4X[i].style.top = `${lane4X[i].offsetTop}px`;
+   }
+   for(let i=0; i<lane4O.length; i++){
+      lane4O[i].style.top = `${lane4O[i].offsetTop}px`;
+   }
+}
+
+
 //game over
 function gameOver(){
    if(!gameOverVar){ 
+      //stop all obstacles
+      stopObstacles();
 
       //remove event listeners and intervals
       clearInterval(mainInterval);

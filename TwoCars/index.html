@@ -123,6 +123,26 @@
          padding-top: 2vh;
       }
 
+      .animateEnlarge {
+         animation-duration: 1s;
+         animation-name: enlarge;
+         animation-iteration-count: infinite;
+      }
+
+      @keyframes enlarge {
+         from {
+            transform: scale(1);
+         }
+
+         50% {
+            transform: scale(1.2);
+         }
+
+         to {
+            transform: scale(1);
+         }
+      }
+
    </style>
 </head>
 <body>
