@@ -94,8 +94,40 @@ function keyDownHandler(e){
    }
 }
 
+function leftCarLaneChange(){
+   if(leftCarLane==2){
+      leftCar.style.left = "43%";
+      leftCarLane = 0;
+      setTimeout(() => {
+         leftCarLane = 1;
+      }, 200);
+   }
+   else if(leftCarLane==1){
+      leftCar.style.left = "33%";
+      leftCarLane = 0;
+      setTimeout(() => {
+         leftCarLane = 2;
+      }, 200);
+   }
+   if(rightCarLane==3){
+      rightCar.style.left = "53%";
+      rightCarLane = 0;
+      setTimeout(() => {
+         rightCarLane = 4;
+      }, 200);
+   }
+   else if(rightCarLane==4){
+      rightCar.style.left = "63%";
+      rightCarLane = 0;
+      setTimeout(() => {
+         rightCarLane = 3;
+      }, 200);
+   }
+}
+
 
 // Functions -----------------------------------------------------------------------------------------------------------------------
+
 
 
 //this function is the controller function, it is used to create obstacles, check whether game is over, etc
