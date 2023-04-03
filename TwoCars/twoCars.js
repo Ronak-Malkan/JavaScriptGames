@@ -109,6 +109,9 @@ function leftCarLaneChange(){
          leftCarLane = 2;
       }, 200);
    }
+}
+
+function rightCarLaneChange(){
    if(rightCarLane==3){
       rightCar.style.left = "53%";
       rightCarLane = 0;
