@@ -4,7 +4,6 @@ const scoreboard = document.querySelector(".score");
 
 let speed = 350;
 
-let gameOverVar = false;
 let score = 0;
 
 //change speed every 3s
@@ -13,7 +12,6 @@ let speedChangeTime = 100;
 let isMobile = false;
 
 if(document.body.offsetWidth <= 768){
-   console.log("mobile");
    isMobile = true;
 }
 
@@ -56,12 +54,12 @@ let lane4O = [];
 // Initialisation -----------------------------------------------------------------------------------------------------------
 
 if(!isMobile){
-   rightCar.style.bottom = `${6*document.body.offsetWidth/200}px`;
-   leftCar.style.bottom = `${6*document.body.offsetWidth/200}px`;
+   rightCar.style.bottom = `${9*document.body.offsetWidth/200}px`;
+   leftCar.style.bottom = `${9*document.body.offsetWidth/200}px`;
 }
 else {
-   rightCar.style.bottom = `${12*document.body.offsetWidth/200}px`;
-   leftCar.style.bottom = `${12*document.body.offsetWidth/200}px`;
+   rightCar.style.bottom = `${20*document.body.offsetWidth/200}px`;
+   leftCar.style.bottom = `${20*document.body.offsetWidth/200}px`;
 }
 
 // set Intervals ------------------------------------------------------------------------------------------------------------
@@ -75,7 +73,7 @@ document.addEventListener("keydown", keyDownHandler);
 leftRoad.addEventListener("touchstart", leftCarLaneChange);
 rightRoad.addEventListener("touchstart", rightCarLaneChange);
 leftCar.addEventListener("touchstart", leftCarLaneChange);
-rightRight.addEventListener("touchstart", rightCarLaneChange);
+rightCar.addEventListener("touchstart", rightCarLaneChange);
 
 // Event Handlers ---------------------------------------------------------------------------------------------------------------
 
@@ -116,7 +114,7 @@ function keyDownHandler(e){
       rightCarLane = 0;
       setTimeout(() => {
          rightCarLane = 3;
-      }, 150);
+      }, 200);
    }
    else if(e.key=="ArrowRight"){
       if(!isMobile){
@@ -128,22 +126,17 @@ function keyDownHandler(e){
       rightCarLane = 0;
       setTimeout(() => {
          rightCarLane = 4;
-      }, 150);
+      }, 200);
    }
 }
 
 function leftCarLaneChange(){
    if(leftCarLane==2){
-      console.log("Left Car lane Change");
       if(!isMobile){
-         console.log("Laptop");
          leftCar.style.left = "33%";
-         console.log(leftCar.offsetLeft);
       }
       else {
-         console.log("Mobile");
          leftCar.style.left = "7.5%";
-         console.log(leftCar.offsetLeft);
       }
       leftCarLane = 0;
       setTimeout(() => {
@@ -166,16 +159,11 @@ function leftCarLaneChange(){
 
 function rightCarLaneChange(){
    if(rightCarLane==3){
-      console.log("Right Car lane Change");
       if(!isMobile){
-         console.log("Laptop");
          rightCar.style.left = "63%";
-         console.log(rightCar.offsetLeft);
       }
       else {
-         console.log("Mobile");
          rightCar.style.left = "82.5%";
-         console.log(rightCar.offsetLeft);
       }
       rightCarLane = 0;
       setTimeout(() => {
@@ -203,6 +191,17 @@ function rightCarLaneChange(){
 
 //this function is the controller function, it is used to create obstacles, check whether game is over, etc
 async function controller(){
+   //removing unnecessary Xs
+   removeXs();
+
+   //check whether car is touching Xs
+   collisionWithX();
+
+   //check whether any O was missed by the car
+   checkMissedO();
+
+   //check whether any O is hit by the car
+   checkHitO();
 
    //speed change code block
    if(speedChangeTime <=0){
@@ -238,18 +237,6 @@ async function controller(){
    }
    createRightObsTime -= 20;
    createLeftObsTime -= 20;
-
-   //removing unnecessary Xs
-   removeXs();
-
-   //check whether car is touching Xs
-   collisionWithX();
-
-   //check whether any O was missed by the car
-   checkMissedO();
-
-   //check whether any O is hit by the car
-   checkHitO();
 }
 
 
@@ -337,7 +324,7 @@ async function createO(road){
    //set time out is used because if you give the element some top before it is inserted into DOM the transition doesn't happen.
    setTimeout(()=> {
       tempObs.style.top = "101%";
-   }, 5);
+   }, 20);
 }
 
 
@@ -362,7 +349,6 @@ async function createX(road){
          }
          firstLane.append(tempObs);
          lane1X.push(tempObs);
-
       }
       else {
          if(!isMobile){
@@ -399,7 +385,7 @@ async function createX(road){
    }
    setTimeout(()=> {
       tempObs.style.top = "101%";
-   }, 5);
+   }, 20);
 }
 
 
@@ -439,7 +425,7 @@ async function collisionWithX(){
             )
          {
             lane1X[i].classList.add("animateEnlarge");
-            gameOver();
+            gameOver(1);
          }
       }
    }
@@ -456,7 +442,7 @@ async function collisionWithX(){
             )
          {
             lane2X[i].classList.add("animateEnlarge");
-            gameOver();
+            gameOver(2);
          }
       }
    }
@@ -473,7 +459,7 @@ async function collisionWithX(){
             )
          {
             lane3X[i].classList.add("animateEnlarge");
-            gameOver();
+            gameOver(3);
          }
       }
    }
@@ -490,7 +476,7 @@ async function collisionWithX(){
             )
          {
             lane4X[i].classList.add("animateEnlarge");
-            gameOver();
+            gameOver(4);
          }
       }
    }
@@ -501,19 +487,19 @@ async function collisionWithX(){
 async function checkMissedO(){
    if(lane1O.length >= 1 && lane1O[0].offsetTop > leftCar.offsetTop + leftCar.offsetHeight){
       lane1O[0].classList.add("animateEnlarge");
-      gameOver();
+      gameOver(5);
    }
    if(lane2O.length >= 1 && lane2O[0].offsetTop > leftCar.offsetTop + leftCar.offsetHeight){
       lane2O[0].classList.add("animateEnlarge");
-      gameOver();
+      gameOver(6);
    }
    if( lane3O.length >= 1 && lane3O[0].offsetTop > rightCar.offsetTop + rightCar.offsetHeight){
       lane3O[0].classList.add("animateEnlarge");
-      gameOver();
+      gameOver(7);
    }
    if( lane4O.length >= 1 && lane4O[0].offsetTop > rightCar.offsetTop + rightCar.offsetHeight){
       lane4O[0].classList.add("animateEnlarge");
-      gameOver();
+      gameOver(8);
    }
 }
 
@@ -584,7 +570,7 @@ async function checkHitO(){
 }
 
 
-function stopObstacles(){
+async function stopObstacles(){
    for(let i=0; i<lane1X.length; i++){
       lane1X[i].style.top = `${lane1X[i].offsetTop}px`;
    }
@@ -613,8 +599,10 @@ function stopObstacles(){
 
 
 //game over
-function gameOver(){
-   if(!gameOverVar){
+async function gameOver(fromWhere){
+      console.log(fromWhere);
+      stopObstacles();
+
       //remove event listeners and intervals
       clearInterval(mainInterval);
       document.removeEventListener("keydown", keyDownHandler);
@@ -626,14 +614,12 @@ function gameOver(){
       //stop all obstacles
       setTimeout(()=>{   
          stopObstacles();
-      }, 5)
+      }, 20);
 
       //Lost is an div element which pop ups when player loses, it shows the score
       document.querySelector(".Lost").style.display = "inline-block";
       document.querySelector("#score").textContent = score;
-      gameOverVar = true;
       setTimeout(() => {
-         window.location.reload();
+        //window.location.reload();
       }, 5000);
-   }
 }
