@@ -58,8 +58,8 @@ if(!isMobile){
    leftCar.style.bottom = `${9*document.body.offsetWidth/200}px`;
 }
 else {
-   rightCar.style.bottom = `${20*document.body.offsetWidth/200}px`;
-   leftCar.style.bottom = `${20*document.body.offsetWidth/200}px`;
+   rightCar.style.bottom = `${30*document.body.offsetWidth/200}px`;
+   leftCar.style.bottom = `${30*document.body.offsetWidth/200}px`;
 }
 
 // set Intervals ------------------------------------------------------------------------------------------------------------
@@ -620,6 +620,6 @@ async function gameOver(fromWhere){
       document.querySelector(".Lost").style.display = "inline-block";
       document.querySelector("#score").textContent = score;
       setTimeout(() => {
-        //window.location.reload();
+        window.location.reload();
       }, 5000);
 }
