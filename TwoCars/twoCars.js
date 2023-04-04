@@ -222,9 +222,9 @@ async function controller(){
    }
    else {
       //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
-      maxTime = (26/100) * (document.body.offsetWidth/speed) * 1000;
+      maxTime = (29/100) * (document.body.offsetWidth/speed) * 1000;
       // min time is set such that obstacle is 10vw away from the earlier obstacle
-      minTime = (23 * document.body.offsetWidth)*1000 /(100*speed);
+      minTime = (26 * document.body.offsetWidth)*1000 /(100*speed);
    }
 
    //for creating obstacles,it checks whether the time for creating obstacles is up, then calls createObs and sets next random time
