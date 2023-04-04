@@ -463,13 +463,13 @@ async function collisionWithX(){
    if(rightCarLane==3){
       for(let i=0; i<lane3X.length; i++){
 
-         if(leftCar.offsetTop > lane3X[i].offsetTop + lane3X[i].offsetHeight){
+         if(rightCar.offsetTop > lane3X[i].offsetTop + lane3X[i].offsetHeight){
             return;
          }
 
          if (
-               (leftCar.offsetTop > lane3X[i].offsetTop && leftCar.offsetTop < lane3X[i].offsetTop + lane3X[i].offsetHeight) || 
-               (leftCar.offsetTop + leftCar.offsetHeight > lane3X[i].offsetTop && leftCar.offsetTop + leftCar.offsetHeight < lane3X[i].offsetTop + lane3X[i].offsetHeight)
+               (rightCar.offsetTop > lane3X[i].offsetTop && rightCar.offsetTop < lane3X[i].offsetTop + lane3X[i].offsetHeight) || 
+               (rightCar.offsetTop + rightCar.offsetHeight > lane3X[i].offsetTop && rightCar.offsetTop + rightCar.offsetHeight < lane3X[i].offsetTop + lane3X[i].offsetHeight)
             )
          {
             lane3X[i].classList.add("animateEnlarge");
@@ -480,13 +480,13 @@ async function collisionWithX(){
    else if(rightCarLane==4) {
       for(let i=0; i<lane4X.length; i++){
 
-         if(leftCar.offsetTop > lane4X[i].offsetTop + lane4X[i].offsetHeight){
+         if(rightCar.offsetTop > lane4X[i].offsetTop + lane4X[i].offsetHeight){
             return;
          }
 
          if (
-               (leftCar.offsetTop > lane4X[i].offsetTop && leftCar.offsetTop < lane4X[i].offsetTop + lane4X[i].offsetHeight) || 
-               (leftCar.offsetTop + leftCar.offsetHeight > lane4X[i].offsetTop && leftCar.offsetTop + leftCar.offsetHeight < lane4X[i].offsetTop + lane4X[i].offsetHeight)
+               (rightCar.offsetTop > lane4X[i].offsetTop && rightCar.offsetTop < lane4X[i].offsetTop + lane4X[i].offsetHeight) || 
+               (rightCar.offsetTop + rightCar.offsetHeight > lane4X[i].offsetTop && rightCar.offsetTop + rightCar.offsetHeight < lane4X[i].offsetTop + lane4X[i].offsetHeight)
             )
          {
             lane4X[i].classList.add("animateEnlarge");
@@ -555,8 +555,8 @@ async function checkHitO(){
       if(
          lane3O.length >= 1 &&
          (
-            (leftCar.offsetTop > lane3O[0].offsetTop && leftCar.offsetTop < lane3O[0].offsetTop + lane3O[0].offsetHeight) || 
-            (leftCar.offsetTop + leftCar.offsetHeight > lane3O[0].offsetTop && leftCar.offsetTop + leftCar.offsetHeight < lane3O[0].offsetTop + lane3O[0].offsetHeight)
+            (rightCar.offsetTop > lane3O[0].offsetTop && rightCar.offsetTop < lane3O[0].offsetTop + lane3O[0].offsetHeight) || 
+            (rightCar.offsetTop + rightCar.offsetHeight > lane3O[0].offsetTop && rightCar.offsetTop + rightCar.offsetHeight < lane3O[0].offsetTop + lane3O[0].offsetHeight)
          )
       )
       {
@@ -570,8 +570,8 @@ async function checkHitO(){
       if(
          lane4O.length >= 1 &&
          (
-            (leftCar.offsetTop > lane4O[0].offsetTop && leftCar.offsetTop < lane4O[0].offsetTop + lane4O[0].offsetHeight) || 
-            (leftCar.offsetTop + leftCar.offsetHeight > lane4O[0].offsetTop && leftCar.offsetTop + leftCar.offsetHeight < lane4O[0].offsetTop + lane4O[0].offsetHeight)
+            (rightCar.offsetTop > lane4O[0].offsetTop && rightCar.offsetTop < lane4O[0].offsetTop + lane4O[0].offsetHeight) || 
+            (rightCar.offsetTop + rightCar.offsetHeight > lane4O[0].offsetTop && rightCar.offsetTop + rightCar.offsetHeight < lane4O[0].offsetTop + lane4O[0].offsetHeight)
          )
       )
       {
