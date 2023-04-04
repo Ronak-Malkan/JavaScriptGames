@@ -19,6 +19,8 @@ if(document.body.offsetWidth <= 768){
 
 // Left Road Variables --------------------------------------------------
 
+const leftRoad = document.querySelector(".leftRoad");
+const rightRoad = document.querySelector(".rightRoad");
 const leftCar = document.querySelector(".leftCar");
 const firstLane = document.querySelector(".firstLane");
 const secondLane = document.querySelector(".secondLane");
@@ -70,7 +72,10 @@ let mainInterval = setInterval(controller, 20);
 // Event Listeners -----------------------------------------------------------------------------------------------------------
 
 document.addEventListener("keydown", keyDownHandler);
-
+leftRoad.addEventListener("click", leftCarLaneChange);
+rightRoad.addEventListener("click", rightCarLaneChange);
+leftCar.addEventListener("click", leftCarLaneChange);
+rightRight.addEventListener("click", rightCarLaneChange);
 
 // Event Handlers ---------------------------------------------------------------------------------------------------------------
 
@@ -129,11 +134,16 @@ function keyDownHandler(e){
 
 function leftCarLaneChange(){
    if(leftCarLane==2){
+      console.log("Left Car lane Change");
       if(!isMobile){
-         leftCar.style.left = "43%";
+         console.log("Laptop");
+         leftCar.style.left = "33%";
+         console.log(leftCar.offsetLeft);
       }
       else {
-         leftCar.style.left = "32.5%";
+         console.log("Mobile");
+         leftCar.style.left = "7.5%";
+         console.log(leftCar.offsetLeft);
       }
       leftCarLane = 0;
       setTimeout(() => {
@@ -142,10 +152,10 @@ function leftCarLaneChange(){
    }
    else if(leftCarLane==1){
       if(!isMobile){
-         leftCar.style.left = "33%";
+         leftCar.style.left = "43%";
       }
       else {
-         leftCar.style.left = "7.5%";
+         leftCar.style.left = "32.5%";
       }
       leftCarLane = 0;
       setTimeout(() => {
@@ -156,11 +166,16 @@ function leftCarLaneChange(){
 
 function rightCarLaneChange(){
    if(rightCarLane==3){
+      console.log("Right Car lane Change");
       if(!isMobile){
-         rightCar.style.left = "53%";
+         console.log("Laptop");
+         rightCar.style.left = "63%";
+         console.log(rightCar.offsetLeft);
       }
       else {
-         rightCar.style.left = "57.5%";
+         console.log("Mobile");
+         rightCar.style.left = "82.5%";
+         console.log(rightCar.offsetLeft);
       }
       rightCarLane = 0;
       setTimeout(() => {
@@ -169,10 +184,10 @@ function rightCarLaneChange(){
    }
    else if(rightCarLane==4){
       if(!isMobile){
-         rightCar.style.left = "63%";
+         rightCar.style.left = "53%";
       }
       else {
-         rightCar.style.left = "82.5%";
+         rightCar.style.left = "57.5%";
       }
       rightCarLane = 0;
       setTimeout(() => {
@@ -207,9 +222,9 @@ async function controller(){
    }
    else {
       //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
-      maxTime = (25/100) * (document.body.offsetWidth/speed) * 1000;
+      maxTime = (26/100) * (document.body.offsetWidth/speed) * 1000;
       // min time is set such that obstacle is 10vw away from the earlier obstacle
-      minTime = (22 * document.body.offsetWidth)*1000 /(100*speed);
+      minTime = (23 * document.body.offsetWidth)*1000 /(100*speed);
    }
 
    //for creating obstacles,it checks whether the time for creating obstacles is up, then calls createObs and sets next random time
@@ -603,6 +618,10 @@ function gameOver(){
       //remove event listeners and intervals
       clearInterval(mainInterval);
       document.removeEventListener("keydown", keyDownHandler);
+      leftRoad.removeEventListener("click", leftCarLaneChange);
+      rightRoad.removeEventListener("click", rightCarLaneChange);
+      leftCar.removeEventListener("click", leftCarLaneChange);
+      rightCar.removeEventListener("click", rightCarLaneChange);
 
       //stop all obstacles
       stopObstacles();
@@ -611,7 +630,6 @@ function gameOver(){
       document.querySelector(".Lost").style.display = "inline-block";
       document.querySelector("#score").textContent = score;
       gameOverVar = true;
-      window.stop();
       setTimeout(() => {
          window.location.reload();
       }, 5000);
