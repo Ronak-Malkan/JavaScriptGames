@@ -72,10 +72,10 @@ let mainInterval = setInterval(controller, 20);
 // Event Listeners -----------------------------------------------------------------------------------------------------------
 
 document.addEventListener("keydown", keyDownHandler);
-leftRoad.addEventListener("click", leftCarLaneChange);
-rightRoad.addEventListener("click", rightCarLaneChange);
-leftCar.addEventListener("click", leftCarLaneChange);
-rightRight.addEventListener("click", rightCarLaneChange);
+leftRoad.addEventListener("touchstart", leftCarLaneChange);
+rightRoad.addEventListener("touchstart", rightCarLaneChange);
+leftCar.addEventListener("touchstart", leftCarLaneChange);
+rightRight.addEventListener("touchstart", rightCarLaneChange);
 
 // Event Handlers ---------------------------------------------------------------------------------------------------------------
 
@@ -618,13 +618,15 @@ function gameOver(){
       //remove event listeners and intervals
       clearInterval(mainInterval);
       document.removeEventListener("keydown", keyDownHandler);
-      leftRoad.removeEventListener("click", leftCarLaneChange);
-      rightRoad.removeEventListener("click", rightCarLaneChange);
-      leftCar.removeEventListener("click", leftCarLaneChange);
-      rightCar.removeEventListener("click", rightCarLaneChange);
+      leftRoad.removeEventListener("touchstart", leftCarLaneChange);
+      rightRoad.removeEventListener("touchstart", rightCarLaneChange);
+      leftCar.removeEventListener("touchstart", leftCarLaneChange);
+      rightCar.removeEventListener("touchstart", rightCarLaneChange);
 
       //stop all obstacles
-      stopObstacles();
+      setTimeout(()=>{   
+         stopObstacles();
+      }, 5)
 
       //Lost is an div element which pop ups when player loses, it shows the score
       document.querySelector(".Lost").style.display = "inline-block";
