@@ -12,6 +12,7 @@
          margin: 0;
          padding: 0;
          overflow-y: hidden;
+         overflow-x: hidden;
       }
       .gameArea{
          display: block;
@@ -40,7 +41,7 @@
          width: 4vw;
          height: 6vw;
          background-image: url("./Car.png");
-         background-size: cover;
+         background-size: 4vw 6vw;
          transition: all 200ms linear;
       }
       .leftCar{
@@ -142,6 +143,78 @@
             transform: scale(1);
          }
       }
+
+
+      @media only screen and (max-width: 768px) {
+         /* For mobile phones: */
+         *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            overflow-y: hidden;
+            overflow-x: hidden;
+         }
+         .gameArea{
+         width: 100%;
+         }
+
+         .cars{
+            width: 10vw;
+            height: 12vw;
+            background-size: 10vw 12vw;
+         }
+         .O{
+            width: 10vw;
+            height: 10vw;
+            font-size: 7.8vw;
+            padding-top: 0.2vw;
+         }
+         .X{
+            width: 10vw;
+            height: 10vw;
+            font-size: 7.8vw;
+            padding-top: 0.2vw;
+         }
+         .leftCar{
+            left: 32.5%;
+         }
+         .rightCar{
+            left: 57.5%;
+         }
+         .score{
+            display: inline-block;
+            position: absolute;
+            top: 50px;
+            left: 78%;
+            z-index: 2;
+            background-color: #3973ac;
+            color: white;
+            padding: 5px 3px;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-radius: 6px;
+            font-size: 20px;
+         }
+         .Lost{
+            display: none;
+            position: absolute;
+            top: 40%;
+            left: 20%;
+            z-index: 3;
+            background-color: #3973ac;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-radius: 6px;
+            font-size: 24px;
+            width: 60%;
+            height: 20%;
+            padding-top: 2vh;
+         }
+      }
+
 
    </style>
 </head>

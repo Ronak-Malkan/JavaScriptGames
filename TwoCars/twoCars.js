@@ -10,6 +10,13 @@ let score = 0;
 //change speed every 3s
 let speedChangeTime = 100;
 
+let isMobile = false;
+
+if(document.body.offsetWidth <= 768){
+   console.log("mobile");
+   isMobile = true;
+}
+
 // Left Road Variables --------------------------------------------------
 
 const leftCar = document.querySelector(".leftCar");
@@ -46,8 +53,14 @@ let lane4O = [];
 
 // Initialisation -----------------------------------------------------------------------------------------------------------
 
-rightCar.style.bottom = `${6*document.body.offsetWidth/200}px`;
-leftCar.style.bottom = `${6*document.body.offsetWidth/200}px`;
+if(!isMobile){
+   rightCar.style.bottom = `${6*document.body.offsetWidth/200}px`;
+   leftCar.style.bottom = `${6*document.body.offsetWidth/200}px`;
+}
+else {
+   rightCar.style.bottom = `${12*document.body.offsetWidth/200}px`;
+   leftCar.style.bottom = `${12*document.body.offsetWidth/200}px`;
+}
 
 // set Intervals ------------------------------------------------------------------------------------------------------------
 
@@ -63,7 +76,12 @@ document.addEventListener("keydown", keyDownHandler);
 
 function keyDownHandler(e){
    if(e.key=="a"){
-      leftCar.style.left = "33%";
+      if(!isMobile){
+         leftCar.style.left = "33%";
+      }
+      else {
+         leftCar.style.left = "7.5%";
+      }
       leftCarLane = 0;
       //here setTimeout is used because we don't want immediately change lane, it takes 200ms for transition to end. Hence until that time car will not be in any lane (that is why carLane = 0), hence it will not be affected by obstacles in either lane.
       setTimeout(() => {
@@ -71,7 +89,12 @@ function keyDownHandler(e){
       }, 200);
    }
    else if(e.key=="d"){
-      leftCar.style.left = "43%";
+      if(!isMobile){
+         leftCar.style.left = "43%";
+      }
+      else {
+         leftCar.style.left = "32.5%";
+      }
       leftCarLane = 0;
       setTimeout(() => {
          leftCarLane = 2;
@@ -79,14 +102,24 @@ function keyDownHandler(e){
    }
 
    if(e.key=="ArrowLeft"){
-      rightCar.style.left = "53%";
+      if(!isMobile){
+         rightCar.style.left = "53%";
+      }
+      else {
+         rightCar.style.left = "57.5%";
+      }
       rightCarLane = 0;
       setTimeout(() => {
          rightCarLane = 3;
       }, 150);
    }
    else if(e.key=="ArrowRight"){
-      rightCar.style.left = "63%";
+      if(!isMobile){
+         rightCar.style.left = "63%";
+      }
+      else {
+         rightCar.style.left = "82.5%";
+      }
       rightCarLane = 0;
       setTimeout(() => {
          rightCarLane = 4;
@@ -96,14 +129,24 @@ function keyDownHandler(e){
 
 function leftCarLaneChange(){
    if(leftCarLane==2){
-      leftCar.style.left = "43%";
+      if(!isMobile){
+         leftCar.style.left = "43%";
+      }
+      else {
+         leftCar.style.left = "32.5%";
+      }
       leftCarLane = 0;
       setTimeout(() => {
          leftCarLane = 1;
       }, 200);
    }
    else if(leftCarLane==1){
-      leftCar.style.left = "33%";
+      if(!isMobile){
+         leftCar.style.left = "33%";
+      }
+      else {
+         leftCar.style.left = "7.5%";
+      }
       leftCarLane = 0;
       setTimeout(() => {
          leftCarLane = 2;
@@ -113,14 +156,24 @@ function leftCarLaneChange(){
 
 function rightCarLaneChange(){
    if(rightCarLane==3){
-      rightCar.style.left = "53%";
+      if(!isMobile){
+         rightCar.style.left = "53%";
+      }
+      else {
+         rightCar.style.left = "57.5%";
+      }
       rightCarLane = 0;
       setTimeout(() => {
          rightCarLane = 4;
       }, 200);
    }
    else if(rightCarLane==4){
-      rightCar.style.left = "63%";
+      if(!isMobile){
+         rightCar.style.left = "63%";
+      }
+      else {
+         rightCar.style.left = "82.5%";
+      }
       rightCarLane = 0;
       setTimeout(() => {
          rightCarLane = 3;
@@ -143,12 +196,21 @@ async function controller(){
    }
    speedChangeTime -= 20;
 
+   let maxTime;
+   let minTime;
 
-
-   //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
-   let maxTime = (13/100) * (document.body.offsetWidth/speed) * 1000;
-   // min time is set such that obstacle is 10vw away from the earlier obstacle
-   let minTime = (10 * document.body.offsetWidth)*1000 /(100*speed);
+   if(!isMobile){
+      //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
+      maxTime = (13/100) * (document.body.offsetWidth/speed) * 1000;
+      // min time is set such that obstacle is 10vw away from the earlier obstacle
+      minTime = (10 * document.body.offsetWidth)*1000 /(100*speed);
+   }
+   else {
+      //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
+      maxTime = (25/100) * (document.body.offsetWidth/speed) * 1000;
+      // min time is set such that obstacle is 10vw away from the earlier obstacle
+      minTime = (22 * document.body.offsetWidth)*1000 /(100*speed);
+   }
 
    //for creating obstacles,it checks whether the time for creating obstacles is up, then calls createObs and sets next random time
    if(createLeftObsTime <= 0){
@@ -215,24 +277,44 @@ async function createO(road){
    let lane = Math.floor(Math.random() * 2);
    if(road=="left"){
       if(lane==0){
-         tempObs.style.left = "33%";
+         if(!isMobile){
+            tempObs.style.left = "33%";
+         }
+         else {
+            tempObs.style.left = "7.5%";
+         }
          firstLane.append(tempObs);
          lane1O.push(tempObs);
       }
       else {
-         tempObs.style.left = "43%";
+         if(!isMobile){
+            tempObs.style.left = "43%";
+         }
+         else {
+            tempObs.style.left = "32.5%";
+         }
          secondLane.append(tempObs);
          lane2O.push(tempObs);
       }
    }
    else if(road=="right"){
       if(lane==0){
-         tempObs.style.left = "53%";
+         if(!isMobile){
+            tempObs.style.left = "53%";
+         }
+         else {
+            tempObs.style.left = "57.5%";
+         }
          thirdLane.append(tempObs);
          lane3O.push(tempObs);
       }
       else {
-         tempObs.style.left = "63%";
+         if(!isMobile){
+            tempObs.style.left = "63%";
+         }
+         else {
+            tempObs.style.left = "82.5%";
+         }
          fourthLane.append(tempObs);
          lane4O.push(tempObs);
       }
@@ -257,25 +339,45 @@ async function createX(road){
    let lane = Math.floor(Math.random() * 2);
    if(road=="left"){
       if(lane==0){
-         tempObs.style.left = "33%";
+         if(!isMobile){
+            tempObs.style.left = "33%";
+         }
+         else {
+            tempObs.style.left = "7.5%";
+         }
          firstLane.append(tempObs);
          lane1X.push(tempObs);
 
       }
       else {
-         tempObs.style.left = "43%";
+         if(!isMobile){
+            tempObs.style.left = "43%";
+         }
+         else {
+            tempObs.style.left = "32.5%";
+         }
          secondLane.append(tempObs);
          lane2X.push(tempObs);
       }
    }
    else if(road=="right"){
       if(lane==0){
-         tempObs.style.left = "53%";
+         if(!isMobile){
+            tempObs.style.left = "53%";
+         }
+         else {
+            tempObs.style.left = "57.5%";
+         }
          thirdLane.append(tempObs);
          lane3X.push(tempObs);
       }
       else {
-         tempObs.style.left = "63%";
+         if(!isMobile){
+            tempObs.style.left = "63%";
+         }
+         else {
+            tempObs.style.left = "82.5%";
+         }
          fourthLane.append(tempObs);
          lane4X.push(tempObs);
       }
@@ -497,13 +599,13 @@ function stopObstacles(){
 
 //game over
 function gameOver(){
-   if(!gameOverVar){ 
-      //stop all obstacles
-      stopObstacles();
-
+   if(!gameOverVar){
       //remove event listeners and intervals
       clearInterval(mainInterval);
       document.removeEventListener("keydown", keyDownHandler);
+
+      //stop all obstacles
+      stopObstacles();
 
       //Lost is an div element which pop ups when player loses, it shows the score
       document.querySelector(".Lost").style.display = "inline-block";
