@@ -21,6 +21,7 @@ let isMobile = false;
 
 if(document.body.offsetWidth <= 768){
    isMobile = true;
+   document.querySelector(".gameIntro").style.height = `${window.innerHeight*90/100}px`;
 }
 
 // Left Road Variables --------------------------------------------------
