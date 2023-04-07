@@ -2,9 +2,17 @@
 
 const scoreboard = document.querySelector(".score");
 
-let speed = 350;
+let speed = 400;
 
 let score = 0;
+
+let minimumObsDistanceMobile;
+let maximumObsDistanceMobile;
+let minimumObsDistance;
+let maximumObsDistance;
+
+//will hold the main setInterval
+let mainInterval;
 
 //change speed every 3s
 let speedChangeTime = 100;
@@ -62,20 +70,65 @@ else {
    leftCar.style.bottom = `${30*document.body.offsetWidth/200}px`;
 }
 
-// set Intervals ------------------------------------------------------------------------------------------------------------
-
-let mainInterval = setInterval(controller, 20);
-
 
 // Event Listeners -----------------------------------------------------------------------------------------------------------
 
-document.addEventListener("keydown", keyDownHandler);
-leftRoad.addEventListener("touchstart", leftCarLaneChange);
-rightRoad.addEventListener("touchstart", rightCarLaneChange);
-leftCar.addEventListener("touchstart", leftCarLaneChange);
-rightCar.addEventListener("touchstart", rightCarLaneChange);
+document.querySelector("#noob").addEventListener("click",() => startGame("noob"));
+document.querySelector("#okayish").addEventListener("click",() => startGame("okayish"));
+document.querySelector("#pro").addEventListener("click",() => startGame("pro"));
 
 // Event Handlers ---------------------------------------------------------------------------------------------------------------
+
+function startGame(level){
+   if(level == "noob"){
+      speed = 200;
+      if(isMobile){
+         minimumObsDistanceMobile = 55;
+         maximumObsDistanceMobile = 65;
+      }
+      else {
+         minimumObsDistance = 12;
+         maximumObsDistance = 15;
+      }
+   }
+   else if(level == "okayish"){
+      speed = 350;
+      if(isMobile){
+         minimumObsDistanceMobile = 50;
+         maximumObsDistanceMobile = 60;
+      }
+      else {
+         minimumObsDistance = 11;
+         maximumObsDistance = 14;
+      }
+   }
+   else {
+      speed = 500;
+      if(isMobile){
+         minimumObsDistanceMobile = 40;
+         maximumObsDistanceMobile = 50;
+      }
+      else {
+         minimumObsDistance = 10;
+         maximumObsDistance = 12;
+      }
+   }
+
+   document.querySelector(".containerForBlur").style.display = "none";
+
+   document.addEventListener("keydown", keyDownHandler);
+   leftRoad.addEventListener("touchstart", leftCarLaneChange);
+   rightRoad.addEventListener("touchstart", rightCarLaneChange);
+   leftCar.addEventListener("touchstart", leftCarLaneChange);
+   rightCar.addEventListener("touchstart", rightCarLaneChange);
+
+
+   //start the interval after 1s
+   setTimeout(() => {
+      mainInterval = setInterval(controller, 20)
+   }, 1000);
+}
+
 
 function keyDownHandler(e){
    if(e.key=="a"){
@@ -206,7 +259,7 @@ async function controller(){
    //speed change code block
    if(speedChangeTime <=0){
       speed += 1;
-      speedChangeTime = 100;
+      speedChangeTime = 150;
    }
    speedChangeTime -= 20;
 
@@ -215,15 +268,15 @@ async function controller(){
 
    if(!isMobile){
       //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
-      maxTime = (13/100) * (document.body.offsetWidth/speed) * 1000;
+      maxTime = (maximumObsDistance/100) * (document.body.offsetWidth/speed) * 1000;
       // min time is set such that obstacle is 10vw away from the earlier obstacle
-      minTime = (10 * document.body.offsetWidth)*1000 /(100*speed);
+      minTime = (minimumObsDistance * document.body.offsetWidth)*1000 /(100*speed);
    }
    else {
       //max time is set such that obstacle is 13vw away from the earlier obstacle, it is in ms
-      maxTime = (55/100) * (document.body.offsetWidth/speed) * 1000;
+      maxTime = (maximumObsDistanceMobile/100) * (document.body.offsetWidth/speed) * 1000;
       // min time is set such that obstacle is 10vw away from the earlier obstacle
-      minTime = (45 * document.body.offsetWidth)*1000 /(100*speed);
+      minTime = (minimumObsDistanceMobile * document.body.offsetWidth)*1000 /(100*speed);
    }
 
    //for creating obstacles,it checks whether the time for creating obstacles is up, then calls createObs and sets next random time
@@ -425,7 +478,7 @@ async function collisionWithX(){
             )
          {
             lane1X[i].classList.add("animateEnlarge");
-            gameOver(1);
+            gameOver();
          }
       }
    }
@@ -442,7 +495,7 @@ async function collisionWithX(){
             )
          {
             lane2X[i].classList.add("animateEnlarge");
-            gameOver(2);
+            gameOver();
          }
       }
    }
@@ -459,7 +512,7 @@ async function collisionWithX(){
             )
          {
             lane3X[i].classList.add("animateEnlarge");
-            gameOver(3);
+            gameOver();
          }
       }
    }
@@ -476,7 +529,7 @@ async function collisionWithX(){
             )
          {
             lane4X[i].classList.add("animateEnlarge");
-            gameOver(4);
+            gameOver();
          }
       }
    }
@@ -487,19 +540,19 @@ async function collisionWithX(){
 async function checkMissedO(){
    if(lane1O.length >= 1 && lane1O[0].offsetTop > leftCar.offsetTop + leftCar.offsetHeight){
       lane1O[0].classList.add("animateEnlarge");
-      gameOver(5);
+      gameOver();
    }
    if(lane2O.length >= 1 && lane2O[0].offsetTop > leftCar.offsetTop + leftCar.offsetHeight){
       lane2O[0].classList.add("animateEnlarge");
-      gameOver(6);
+      gameOver();
    }
    if( lane3O.length >= 1 && lane3O[0].offsetTop > rightCar.offsetTop + rightCar.offsetHeight){
       lane3O[0].classList.add("animateEnlarge");
-      gameOver(7);
+      gameOver();
    }
    if( lane4O.length >= 1 && lane4O[0].offsetTop > rightCar.offsetTop + rightCar.offsetHeight){
       lane4O[0].classList.add("animateEnlarge");
-      gameOver(8);
+      gameOver();
    }
 }
 
@@ -599,8 +652,7 @@ async function stopObstacles(){
 
 
 //game over
-async function gameOver(fromWhere){
-      console.log(fromWhere);
+async function gameOver(){
       stopObstacles();
 
       //remove event listeners and intervals

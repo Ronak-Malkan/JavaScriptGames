@@ -14,6 +14,127 @@
          overflow-y: hidden;
          overflow-x: hidden;
       }
+
+      .containerForBlur {
+         display: inline-block;
+         position: absolute;
+         width: 100%;
+         height: 100vh;
+         background: transparent;
+         backdrop-filter: blur(8px);
+         z-index: 4;
+      }
+
+      .gameIntro {
+         display: grid;
+         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+         position: absolute;
+         width: 60%;
+         height: 70%;
+         top: 15%;
+         left: 20%;
+         z-index: 5;
+         background-color: rgb(242, 242, 242);
+         color: #3973ac;
+         border-radius: 10px;
+         border: 3px solid black;
+         justify-content: center;
+      }
+
+      
+      .Heading{
+         text-align: center;
+         font-size: 40px;
+         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+         grid-column-start: span 6;
+         align-self: flex-end;
+      }
+
+
+      .controlList {
+         display: inline-block;
+         grid-column-start: span 3;
+         align-self: flex-start;
+         width: 100%;
+         color: black;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         font-size: 17px;
+         margin-top: 7%;
+      }
+
+      .Heading2{
+         display: block;
+         color: black;
+         text-align: center;
+         font-size: 25px;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      #letUsPlay {
+         grid-column-start: span 6;
+         margin-top: -3%;
+      }
+
+      ul {
+         margin-top: 3%;
+         margin-left: 10%;
+         margin-right: 10%;
+      }
+
+      ul>li{
+         display: list-item;
+         position: relative;
+         list-style-type: disc;
+         list-style-position: outside;
+         padding-left: 5%;
+         margin-bottom: 3%;
+         text-align: justify;
+      }
+
+      li::before {
+         position: absolute;
+         left: 5px;
+         content: '•';        
+      }
+
+      kbd {
+         border-radius: 2px;
+         padding: 0.3px 2px;
+         border: 1px solid black;
+      }
+
+
+      .difficultyButton {
+         display: inline-block;
+         grid-column-start: span 2;
+         align-self: center;
+         justify-self: center;
+         font-size: 17px;
+         font-weight: 600;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         width: 50%;
+         padding: 5px;
+         margin-top: -28%;
+         border: 2px solid black;
+         border-radius: 6px;
+      }
+
+      .difficultyButton:hover {
+         transform: scale(1.05);
+      }
+
+      #noob {
+         background-color: #58ac58;
+      }
+
+      #okayish {
+         background-color: orange;
+      }
+
+      #pro {
+         background-color: #dc143c;
+      }
+
       .gameArea{
          display: block;
          width: 40%;
@@ -154,6 +275,117 @@
             overflow-y: hidden;
             overflow-x: hidden;
          }
+
+
+         .containerForBlur {
+            display: inline-block;
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            background: transparent;
+            backdrop-filter: blur(8px);
+            z-index: 4;
+         }
+
+         .gameIntro {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            position: absolute;
+            width: 80%;
+            height: 90%;
+            top: 5%;
+            left: 10%;
+            z-index: 5;
+            background-color: rgb(242, 242, 242);
+            color: #3973ac;
+            border-radius: 10px;
+            border: 3px solid black;
+            justify-content: center;
+            overflow-y: scroll;
+         }
+
+         
+         .Heading{
+            text-align: center;
+            font-size: 35px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            grid-column-start: span 6;
+            align-self: flex-end;
+            margin-bottom: 5%;
+         }
+
+
+         .controlList {
+            display: inline-block;
+            grid-column-start: span 6;
+            align-self: flex-start;
+            width: 100%;
+            color: black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 17px;
+            margin-top: -2%;
+         }
+
+         .Heading2{
+            display: block;
+            color: black;
+            text-align: center;
+            font-size: 22px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         }
+
+         #letUsPlay {
+            grid-column-start: span 6;
+            margin-top: -5%;
+         }
+
+         
+         .difficultyButton {
+            display: inline-block;
+            grid-column-start: span 2;
+            align-self: center;
+            justify-self: center;
+            font-size: 17px;
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 85%;
+            padding: 5px;
+            text-align: center;
+            margin-top: -2%;
+            margin-bottom: 25%;
+            border: 2px solid black;
+            border-radius: 6px;
+         }
+
+         ul {
+            margin-left: 5%;
+            margin-right: 5%;
+         }
+
+         ul>li{
+            display: list-item;
+            position: relative;
+            list-style-type: disc;
+            list-style-position: outside;
+            padding-left: 5%;
+            margin-top: 3%;
+            text-align: justify;
+         }
+
+         li::before {
+            position: absolute;
+            left: 5px;
+            content: '•';        
+         }
+
+         kbd {
+            border-radius: 2px;
+            padding: 0.3px 2px;
+            border: 1px solid black;
+         }
+
+
+
          .gameArea{
          width: 100%;
          }
@@ -219,10 +451,48 @@
    </style>
 </head>
 <body>
+
+   <div class="containerForBlur">
+      <div class="gameIntro">
+         <h1 class="Heading">
+            Controls
+         </h1>
+         <div class="controlList">
+            <h2 class="Heading2">Touch Screen Controls</h2>
+            <div>
+               <ul>
+                  <li>
+                     Touch anywhere on the left road to move the left car
+                  </li>
+                  <li>
+                     Touch anywhere on the right road to move the right car
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="controlList">
+            <h2 class="Heading2">Keyboard Controls</h2>
+            <ul>
+               <li>
+                  Pressing <kbd>A</kbd> or <kbd>D</kbd> moves the left car towards the left or right respectively
+               </li>
+               <li>
+                  Pressing <kbd>ArrowLeft</kbd> or <kbd>ArrowRight</kbd> moves the right car towards the left or right respectively.
+               </li>
+            </ul>
+         </div>
+         <h2 class="Heading2" id="letUsPlay">Ok, let's play</h2>
+         <button class="difficultyButton" id="noob">Noob</button>
+         <button class="difficultyButton" id="okayish">Okayish</button>
+         <button class="difficultyButton" id="pro">Pro</button>
+      </div>
+   </div>
+
+
    <div class="gameArea">
       <div class="leftRoad roadLanes">
          <div class="firstLane roadLanes">
-
+         
          </div>
          <div class="secondLane roadLanes">
 
