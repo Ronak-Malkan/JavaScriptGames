@@ -126,7 +126,7 @@ function startGame(level){
 
    //start the interval after 1s
    setTimeout(() => {
-      mainInterval = setInterval(controller, 20)
+      mainInterval = setInterval(controller, 20);
    }, 1000);
 }
 
@@ -423,7 +423,7 @@ async function createX(road){
          else {
             tempObs.style.left = "57.5%";
          }
-         thirdLane.append(tempObs);
+         thirdLane.append(tempObs); 
          lane3X.push(tempObs);
       }
       else {
@@ -470,7 +470,7 @@ async function collisionWithX(){
       for(let i=0; i<lane1X.length; i++){
          //below if statement is used to shorten the for loop, if our car is above one X and below another then no need check remaining X
          if(leftCar.offsetTop > lane1X[i].offsetTop + lane1X[i].offsetHeight){
-            return;
+            break;
          }
 
          if (
@@ -487,7 +487,7 @@ async function collisionWithX(){
       for(let i=0; i<lane2X.length; i++){
 
          if(leftCar.offsetTop > lane2X[i].offsetTop + lane2X[i].offsetHeight){
-            return;
+            break;
          }
 
          if (
@@ -504,7 +504,7 @@ async function collisionWithX(){
       for(let i=0; i<lane3X.length; i++){
 
          if(rightCar.offsetTop > lane3X[i].offsetTop + lane3X[i].offsetHeight){
-            return;
+            break;
          }
 
          if (
@@ -521,7 +521,7 @@ async function collisionWithX(){
       for(let i=0; i<lane4X.length; i++){
 
          if(rightCar.offsetTop > lane4X[i].offsetTop + lane4X[i].offsetHeight){
-            return;
+            break;
          }
 
          if (
@@ -667,7 +667,7 @@ async function gameOver(){
       //stop all obstacles
       setTimeout(()=>{   
          stopObstacles();
-      }, 20);
+      }, 70);
 
       //Lost is an div element which pop ups when player loses, it shows the score
       document.querySelector(".Lost").style.display = "inline-block";
