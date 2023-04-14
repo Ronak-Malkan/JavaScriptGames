@@ -2,6 +2,8 @@
 
 const scoreboard = document.querySelector(".score");
 
+let difficultyLevel;
+
 let speed = 400;
 
 let score = 0;
@@ -81,6 +83,7 @@ document.querySelector("#pro").addEventListener("click",() => startGame("pro"));
 // Event Handlers ---------------------------------------------------------------------------------------------------------------
 
 function startGame(level){
+   difficultyLevel = level;
    if(level == "noob"){
       speed = 200;
       if(isMobile){
@@ -669,9 +672,31 @@ async function gameOver(){
          stopObstacles();
       }, 70);
 
+      let highScore;
+
+      if(isMobile){
+         highScore = localStorage.getItem(`m${difficultyLevel}`);
+         if(highScore == null){
+            highScore = '0';
+         }
+         if(Number(highScore) < score){
+            localStorage.setItem(`m${difficultyLevel}`, `${score}`);
+         }
+      }
+      else {
+         highScore = localStorage.getItem(`nm${difficultyLevel}`);
+         if(highScore == null){
+            highScore = '0';
+         }
+         if(Number(highScore) < score){
+            localStorage.setItem(`nm${difficultyLevel}`, `${score}`);
+         }
+      }
+
       //Lost is an div element which pop ups when player loses, it shows the score
       document.querySelector(".Lost").style.display = "inline-block";
       document.querySelector("#score").textContent = score;
+      document.querySelector("#highScore").textContent = highScore;
       setTimeout(() => {
         window.location.reload();
       }, 5000);
