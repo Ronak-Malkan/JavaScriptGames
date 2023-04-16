@@ -137,14 +137,14 @@ function startGame(level){
 }
 
 function showLevels(){
-   clearEverything()
+   clearEverything();
    document.querySelector(".Lost").style.display = "none";
+   document.querySelector(".containerForBlur").style.display = "inline-block";
    document.querySelector(".gameIntro").style.display = "grid";
 }
 
 function retry(){
-   clearEverything()
-   document.querySelector(".containerForBlur").style.display = "none";
+   clearEverything();
    document.querySelector(".Lost").style.display = "none";
    startGame(difficultyLevel);
 }
@@ -726,7 +726,6 @@ async function gameOver(){
       }
 
       //Lost is an div element which pop ups when player loses, it shows the score
-      document.querySelector(".containerForBlur").style.display = "inline-block";
       document.querySelector(".Lost").style.display = "inline-block";
       document.querySelector("#score").textContent = score;
       document.querySelector("#highScore").textContent = highScore;
