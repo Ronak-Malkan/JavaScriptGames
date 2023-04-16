@@ -79,6 +79,8 @@ else {
 document.querySelector("#noob").addEventListener("click",() => startGame("noob"));
 document.querySelector("#okayish").addEventListener("click",() => startGame("okayish"));
 document.querySelector("#pro").addEventListener("click",() => startGame("pro"));
+document.querySelector("#Levels").addEventListener("click", showLevels);
+document.querySelector("#Retry").addEventListener("click", retry);
 
 // Event Handlers ---------------------------------------------------------------------------------------------------------------
 
@@ -119,6 +121,7 @@ function startGame(level){
    }
 
    document.querySelector(".containerForBlur").style.display = "none";
+   document.querySelector(".gameIntro").style.display = "none";
 
    document.addEventListener("keydown", keyDownHandler);
    leftRoad.addEventListener("touchstart", leftCarLaneChange);
@@ -133,6 +136,35 @@ function startGame(level){
    }, 1000);
 }
 
+function showLevels(){
+   clearEverything()
+   document.querySelector(".Lost").style.display = "none";
+   document.querySelector(".gameIntro").style.display = "grid";
+}
+
+function retry(){
+   clearEverything()
+   document.querySelector(".containerForBlur").style.display = "none";
+   document.querySelector(".Lost").style.display = "none";
+   startGame(difficultyLevel);
+}
+
+function clearEverything(){
+   score = 0;
+   firstLane.innerHTML = '';
+   secondLane.innerHTML = '';
+   thirdLane.innerHTML = '';
+   fourthLane.innerHTML = '';
+   lane1O = [];
+   lane1X = [];
+   lane2O = [];
+   lane2X = [];
+   lane3O = [];
+   lane3X = [];
+   lane4O = [];
+   lane4X = [];
+   scoreboard.textContent = '0';
+}
 
 function keyDownHandler(e){
    if(e.key=="a"){
@@ -694,10 +726,8 @@ async function gameOver(){
       }
 
       //Lost is an div element which pop ups when player loses, it shows the score
+      document.querySelector(".containerForBlur").style.display = "inline-block";
       document.querySelector(".Lost").style.display = "inline-block";
       document.querySelector("#score").textContent = score;
       document.querySelector("#highScore").textContent = highScore;
-      setTimeout(() => {
-        window.location.reload();
-      }, 5000);
 }

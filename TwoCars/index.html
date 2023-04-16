@@ -22,7 +22,7 @@
          height: 100vh;
          background: transparent;
          backdrop-filter: blur(8px);
-         z-index: 4;
+         z-index: 3;
       }
 
       .gameIntro {
@@ -232,9 +232,9 @@
       .Lost{
          display: none;
          position: absolute;
-         top: 30%;
+         top: 26%;
          left: 37.5%;
-         z-index: 3;
+         z-index: 4;
          background-color: #3973ac;
          color: white;
          text-align: center;
@@ -243,10 +243,31 @@
          border-radius: 6px;
          font-size: 24px;
          width: 25%;
-         height: 40%;
+         height: 48%;
          padding-top: 2vh;
       }
 
+      .restartMatchButtons{
+         display: inline-block;
+         font-size: 20px;
+         font-weight: 600;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         width: 30%;
+         padding: 3px;
+         border: 2px solid black;
+         background-color: white;
+         border-radius: 6px;
+      }
+
+      .restartMatchButtons:hover {
+         transform: scale(1.07);
+      }
+
+      #Levels {
+         margin-right: 12%;
+      }
+
+      
       .animateEnlarge {
          animation-duration: 1s;
          animation-name: enlarge;
@@ -286,7 +307,7 @@
             height: 100vh;
             background: transparent;
             backdrop-filter: blur(8px);
-            z-index: 4;
+            z-index: 3;
          }
 
          .gameIntro {
@@ -434,9 +455,9 @@
          .Lost{
             display: none;
             position: absolute;
-            top: 30%;
+            top: 26%;
             left: 20%;
-            z-index: 3;
+            z-index: 4;
             background-color: #3973ac;
             color: white;
             text-align: center;
@@ -445,7 +466,7 @@
             border-radius: 6px;
             font-size: 24px;
             width: 60%;
-            height: 40%;
+            height: 48%;
             padding-top: 2vh;
          }
       }
@@ -456,41 +477,41 @@
 <body>
 
    <div class="containerForBlur">
-      <div class="gameIntro">
-         <h1 class="Heading">
-            Controls
-         </h1>
-         <div class="controlList">
-            <h2 class="Heading2">Touch Screen Controls</h2>
-            <div>
-               <ul>
-                  <li>
-                     Touch anywhere on the left road to move the left car
-                  </li>
-                  <li>
-                     Touch anywhere on the right road to move the right car
-                  </li>
-               </ul>
-            </div>
-         </div>
-         <div class="controlList">
-            <h2 class="Heading2">Keyboard Controls</h2>
+   </div>
+
+   <div class="gameIntro">
+      <h1 class="Heading">
+         Controls
+      </h1>
+      <div class="controlList">
+         <h2 class="Heading2">Touch Screen Controls</h2>
+         <div>
             <ul>
                <li>
-                  Pressing <kbd>A</kbd> or <kbd>D</kbd> moves the left car towards the left or right respectively
+                  Touch anywhere on the left road to move the left car
                </li>
                <li>
-                  Pressing <kbd>ArrowLeft</kbd> or <kbd>ArrowRight</kbd> moves the right car towards the left or right respectively.
+                  Touch anywhere on the right road to move the right car
                </li>
             </ul>
          </div>
-         <h2 class="Heading2" id="letUsPlay">Ok, let's play</h2>
-         <button class="difficultyButton" id="noob">Noob</button>
-         <button class="difficultyButton" id="okayish">Okayish</button>
-         <button class="difficultyButton" id="pro">Pro</button>
       </div>
+      <div class="controlList">
+         <h2 class="Heading2">Keyboard Controls</h2>
+         <ul>
+            <li>
+               Pressing <kbd>A</kbd> or <kbd>D</kbd> moves the left car towards the left or right respectively
+            </li>
+            <li>
+               Pressing <kbd>ArrowLeft</kbd> or <kbd>ArrowRight</kbd> moves the right car towards the left or right respectively.
+            </li>
+         </ul>
+      </div>
+      <h2 class="Heading2" id="letUsPlay">Ok, let's play</h2>
+      <button class="difficultyButton" id="noob">Noob</button>
+      <button class="difficultyButton" id="okayish">Okayish</button>
+      <button class="difficultyButton" id="pro">Pro</button>
    </div>
-
 
    <div class="gameArea">
       <div class="leftRoad roadLanes">
@@ -519,7 +540,9 @@
       Your score<br/>
       <div id="score" style="font-size: 50px;margin-top: 2vh;">0</div><br/>
       High Score<br/>
-      <div id="highScore" style="font-size: 35px;margin-top: 2vh;">0</div>
+      <div id="highScore" style="font-size: 35px;margin-top: 2vh;">0</div><br/>
+      <button class="restartMatchButtons" id="Levels">Levels</button>
+      <button class="restartMatchButtons" id="Retry">Retry</button>
    </div>
 </body>
 </html>
