@@ -20,11 +20,14 @@ let wordFallTime = 10;
 
 let mainInterval;
 
+let score = 0;
+
 const root = document.querySelector(":root");
 const startButton = document.querySelector("#start");
 const wordFallSpeedInput = document.querySelector("#wordFallSpeed");
 const wordSpawnSpeedInput = document.querySelector("#wordSpawnSpeed");
 const playground = document.querySelector(".playground");
+const scoreboard = document.querySelector(".scoreboard");
 
 // Event Listeners -------------------------------------------------------
 
@@ -77,6 +80,9 @@ function typing(e){
       }
       console.log(wordCreatedList[wordListIndex] ,wordCreatedList[wordListIndex].length);
       if(wordIndex == wordCreatedList[wordListIndex].length){
+
+         updateScore(wordCreatedList[wordListIndex].length);
+
          wordCreatedNode[wordListIndex].remove();
          wordCreatedList.splice(wordListIndex, 1);
          wordCreatedNode.splice(wordListIndex, 1);
@@ -91,6 +97,9 @@ function typing(e){
             wordIndex++;
             wordCreatedNode[wordListIndex].textContent = wordCreatedList[wordListIndex].slice(wordIndex);
             if(wordIndex == wordCreatedList[wordListIndex].length){
+
+               updateScore(1);
+
                wordCreatedNode[wordListIndex].remove();
                wordCreatedList.splice(wordListIndex, 1);
                wordCreatedNode.splice(wordListIndex, 1);
@@ -142,3 +151,7 @@ function gameOver(){
    isGameOver = true;
 }
 
+function updateScore(points){
+   score += points;
+   scoreboard.textContent = score;
+}
