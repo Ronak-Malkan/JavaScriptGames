@@ -28,7 +28,7 @@
          width: 100%;
          height: 100vh;
          background: transparent;
-         backdrop-filter: blur(8px);
+         backdrop-filter: blur(6px);
          z-index: 4;
       }
 
@@ -67,6 +67,32 @@
          font-family: 'Share Tech Mono', monospace;
          border-radius: 6px;
          font-size: 34px;
+      }
+
+      .bulletBase {
+         display: inline-block;
+         position: absolute;
+         width: 6vw;
+         height: 6vw;
+         top: 94.5%;
+         left: 47.25%;
+         background-color: rgb(63, 196, 152);
+         border-radius: 100%;
+         z-index: 3;
+      }
+
+      .letterBullet {
+         display: inline-block;
+         position: absolute;
+         top: 96%;
+         left: 49.8%;
+         color: rgb(63, 196, 152);
+         background-color: transparent;
+         font-size: 20px;
+         font-family: 'Space Mono', monospace;
+         font-weight: 700;
+         transition: all 500ms linear;
+         z-index: 2;
       }
 
       .gameIntro {
@@ -128,6 +154,70 @@
          scale: 1.07;
       }
 
+      .lostBoard {
+         display: none;
+         position: absolute;
+         width: 30vw;
+         height: 56vh;
+         top: 22%;
+         left: 35%;
+         background-color: rgb(63, 196, 152);
+         color: black;
+         z-index: 5;
+         border-radius: 7px;
+      }
+
+      .lostBoard>h1 {
+         text-align: center;
+         font-size: 22px;
+         font-weight: 700;
+         font-family: 'Space Mono', monospace;
+         margin-top: 15px;
+      }
+
+      .lostBoard>p{
+         text-align: center;
+         padding: 10px 15px;
+         padding-bottom: 0;
+         font-size: 19px;
+         font-family: 'Mukta', sans-serif;
+         font-weight: 400;
+      }
+
+      .lostBoard>button {
+         width: 150px;
+         margin: 24px 0;
+         padding: 6px;
+         outline: none;
+         border: none;
+         border-radius: 5px;
+         background-color: black;
+         color: rgb(68, 223, 171);
+         font-weight: 700;
+         font-family: 'Space Mono', monospace;
+         font-size: 20px;
+      }
+
+      .lostBoard>button:hover {
+         scale: 1.07;
+      }
+
+      #restart {
+         float: left;
+         margin-left: 40px;
+      }
+
+      #home {
+         float: right;
+         margin-right: 40px;
+      }
+
+      .scores {
+         font-weight: 400;
+         font-family: 'Share Tech Mono', monospace;
+         font-size: 19px;
+      }
+
    </style>
 </head>
 <body>
@@ -137,7 +227,7 @@
 
    <div class="playground"></div>
    <div class="scoreboard">0</div>
-
+   <div class="bulletBase"></div>
 
    <!-- gameIntro -------------------------- -->
 
@@ -153,6 +243,27 @@
       <input type="number" id="wordSpawnSpeed" name="wordSpawnSpeed" min="0.2" max="5" value='2.0' step="0.1">
 
       <button id="start">Start Typing</button>
+   </div>
+
+   <div class="lostBoard">
+      <h1>Your Score</h1>
+      <p>
+         &nbsp;&nbsp;&nbsp;&nbsp;Points: <span class="scores" id="currentPoints">12</span> &nbsp;&nbsp;-&nbsp;&nbsp;
+         Accuracy: <span class="scores" id="currentAccuracy">80%</span>
+      </p>
+      <h1>Highest Points</h1>
+      <p>
+         Points: <span class="scores" id="highestPoints">12</span> &nbsp;&nbsp;-&nbsp;&nbsp;
+         Accuracy: <span class="scores" id="highestPAccuracy">80%</span>
+      </p>
+      <h1>Highest Accuracy</h1>
+      <p>
+         Points: <span class="scores" id="highestAPoints">12</span> &nbsp;&nbsp;-&nbsp;&nbsp;
+         Accuracy: <span class="scores" id="highestAccuracy">80%</span>
+      </p>
+      <p style="font-size: 14px; margin-top: 5px;"><strong>* For different speed settings, highest points/accuracy will differ</strong></p>
+      <button id="restart">Restart</button>
+      <button id="home">Home</button>
    </div>
 
 </body>
