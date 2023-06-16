@@ -45,8 +45,6 @@ const lostBoard = document.querySelector(".lostBoard");
 const restartButton = document.querySelector("#restart");
 const homeButton = document.querySelector("#home");
 
-console.log(playground.offsetHeight, playground.offsetWidth);
-
 // Event Listeners -------------------------------------------------------
 
 document.querySelector("body").addEventListener('click', changeTheme);

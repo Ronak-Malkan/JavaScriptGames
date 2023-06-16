@@ -154,6 +154,10 @@
          scale: 1.07;
       }
 
+      .mobileTabletMessage {
+         display: none;
+      }
+
       .lostBoard {
          display: none;
          position: absolute;
@@ -240,6 +244,25 @@
          }
       }
 
+      @media only screen and (max-width: 1000px) {
+         .mobileTabletMessage {
+            display: inline-block;
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 5%;
+            background-color: rgb(63, 196, 152);
+            color: black;
+            z-index: 7;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+            margin-top: 20px;
+            padding: 30px 20px;
+            text-align: center;
+         }
+      }
+
    </style>
 </head>
 <body>
@@ -286,6 +309,10 @@
       <p style="font-size: 14px; margin-top: 5px;"><strong>* For different speed settings, highest points/accuracy will differ</strong></p>
       <button id="restart">Restart</button>
       <button id="home">Home</button>
+   </div>
+
+   <div class="mobileTabletMessage">
+      Mobile/Tablet version is not available yet, please try playing this game in laptop.
    </div>
 
 </body>
