@@ -218,6 +218,28 @@
          font-size: 19px;
       }
 
+      @media only screen and (max-height: 700px) {
+         .gameIntro>h1 {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+            margin-top: 30px;
+         }
+         .lostBoard {
+            display: none;
+            position: absolute;
+            width: 32vw;
+            height: 58vh;
+            top: 21%;
+            left: 34%;
+            background-color: rgb(63, 196, 152);
+            color: black;
+            z-index: 5;
+            border-radius: 7px;
+         }
+      }
+
    </style>
 </head>
 <body>

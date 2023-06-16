@@ -14,11 +14,19 @@ let isGameOver = false;
 let colorScheme = 'dark';
 
 let spawnInterval = 2.0;
+let tempSpawnInterval = 2.0;
 let spawnTimeRemaining = 0;
 
+let tempWordFallTime = 10;
 let wordFallTime = 10;
 
 let letterBulletTransitionTime = 500;
+
+let speedIncreaseInterval  = 5000;
+let speedIncreaseTimeRemaining = 5000;
+
+let wordFallTimeDecrease = 0.2;
+let spawnIntervalDecrease = 0.05;
 
 let mainInterval;
 
@@ -36,6 +44,8 @@ const scoreboard = document.querySelector(".scoreboard");
 const lostBoard = document.querySelector(".lostBoard");
 const restartButton = document.querySelector("#restart");
 const homeButton = document.querySelector("#home");
+
+console.log(playground.offsetHeight, playground.offsetWidth);
 
 // Event Listeners -------------------------------------------------------
 
@@ -85,6 +95,9 @@ function start(e){
    totalCorrectLetters = 0;
    totalLettersTyped = 0;
 
+   wordFallTime = tempWordFallTime;
+   spawnInterval = tempSpawnInterval;
+
    document.querySelector("body").removeEventListener("click", changeTheme);
 
    document.querySelector(".gameIntro").style.display = 'none';
@@ -92,9 +105,11 @@ function start(e){
    lostBoard.style.display = "none";
    if(e.target == startButton && wordFallSpeedInput.value != null && wordFallSpeedInput.value != 10) {
       wordFallTime = wordFallSpeedInput.value;
+      tempWordFallTime = wordFallTime;
    }
    if(e.target == startButton && wordSpawnSpeedInput.value != null && wordSpawnSpeedInput.value != 2.0) {
       spawnInterval = wordSpawnSpeedInput.value;
+      tempSpawnInterval = spawnInterval;
    }
 
    document.addEventListener("keydown", typing);
@@ -186,6 +201,14 @@ function controller(){
    }
    spawnTimeRemaining = spawnTimeRemaining - 0.03;
 
+   if(speedIncreaseTimeRemaining <=0 ){
+      spawnInterval -= spawnIntervalDecrease;
+      wordFallTime -= wordFallTimeDecrease;
+      speedIncreaseTimeRemaining = speedIncreaseInterval;
+   }
+
+   speedIncreaseTimeRemaining -= 20;
+
    checkIfWordReachBottom();
 }
 
@@ -227,7 +250,66 @@ function gameOver(){
 
 function updateLostBoard(){
    document.querySelector("#currentPoints").textContent = `${score}`;
-   document.querySelector("#currentAccuracy").textContent = `${(totalCorrectLetters*100/totalLettersTyped).toFixed(1)}%`;
+   let accuracy = 0.0;
+   if(totalLettersTyped != 0) accuracy = (totalCorrectLetters*100/totalLettersTyped).toFixed(1);
+   document.querySelector("#currentAccuracy").textContent = `${accuracy}%`;
+   let highestPoints = localStorage.getItem(`hp${tempWordFallTime}${tempSpawnInterval}`);
+   let highestPAccuracy = localStorage.getItem(`hpa${tempWordFallTime}${tempSpawnInterval}`);
+   let highestAccuracy = localStorage.getItem(`ha${tempWordFallTime}${tempSpawnInterval}`);
+   let highestAPoints = localStorage.getItem(`hap${tempWordFallTime}${tempSpawnInterval}`);
+   if(highestPoints == null && score != 0){
+      localStorage.setItem(`hp${tempWordFallTime}${tempSpawnInterval}`, `${score}`);
+      localStorage.setItem(`hpa${tempWordFallTime}${tempSpawnInterval}`, `${accuracy}`);
+      document.querySelector("#highestPoints").textContent = `${score}`;
+      document.querySelector("#highestPAccuracy").textContent = `${accuracy}%`;
+   }
+   else if(highestPoints != null && Number(highestPoints)<score){
+      localStorage.setItem(`hp${tempWordFallTime}${tempSpawnInterval}`, `${score}`);
+      localStorage.setItem(`hpa${tempWordFallTime}${tempSpawnInterval}`, `${accuracy}`);
+      document.querySelector("#highestPoints").textContent = `${score}`;
+      document.querySelector("#highestPAccuracy").textContent = `${accuracy}%`;
+   }
+   else if(highestPoints != null && Number(highestPoints) == score && Number(highestPAccuracy) < accuracy){
+      localStorage.setItem(`hp${tempWordFallTime}${tempSpawnInterval}`, `${score}`);
+      localStorage.setItem(`hpa${tempWordFallTime}${tempSpawnInterval}`, `${accuracy}`);
+      document.querySelector("#highestPoints").textContent = `${score}`;
+      document.querySelector("#highestPAccuracy").textContent = `${accuracy}%`;
+   }
+   else if(Number(highestPoints)>=score) {
+      document.querySelector("#highestPoints").textContent = `${highestPoints}`;
+      document.querySelector("#highestPAccuracy").textContent = `${highestPAccuracy}%`;
+   }
+   else {
+      document.querySelector("#highestPoints").textContent = `0`;
+      document.querySelector("#highestPAccuracy").textContent = `0.0%`;
+   }
+
+   if(highestAccuracy == null && accuracy != 0.0){
+      localStorage.setItem(`hap${tempWordFallTime}${tempSpawnInterval}`, `${score}`);
+      localStorage.setItem(`ha${tempWordFallTime}${tempSpawnInterval}`, `${accuracy}`);
+      document.querySelector("#highestAPoints").textContent = `${score}`;
+      document.querySelector("#highestAccuracy").textContent = `${accuracy}%`;
+   }
+   else if(highestAccuracy != null && Number(highestAccuracy)<accuracy){
+      localStorage.setItem(`hap${tempWordFallTime}${tempSpawnInterval}`, `${score}`);
+      localStorage.setItem(`ha${tempWordFallTime}${tempSpawnInterval}`, `${accuracy}`);
+      document.querySelector("#highestAPoints").textContent = `${score}`;
+      document.querySelector("#highestAccuracy").textContent = `${accuracy}%`;
+   }
+   else if(highestAccuracy != null && Number(highestAccuracy) == accuracy && Number(highestAPoints) < score){
+      localStorage.setItem(`hap${tempWordFallTime}${tempSpawnInterval}`, `${score}`);
+      localStorage.setItem(`ha${tempWordFallTime}${tempSpawnInterval}`, `${accuracy}`);
+      document.querySelector("#highestAPoints").textContent = `${score}`;
+      document.querySelector("#highestAccuracy").textContent = `${accuracy}%`;
+   }
+   else if(Number(highestAccuracy)>=accuracy) {
+      document.querySelector("#highestAPoints").textContent = `${highestAPoints}`;
+      document.querySelector("#highestAccuracy").textContent = `${highestAccuracy}%`;
+   }
+   else {
+      document.querySelector("#highestAPoints").textContent = `0`;
+      document.querySelector("#highestAccuracy").textContent = `0.0%`;
+   }
 }
 
 function updateScore(points){
