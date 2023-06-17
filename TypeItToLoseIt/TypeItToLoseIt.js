@@ -197,7 +197,7 @@ function controller(){
       spawnTimeRemaining = spawnInterval;
       createWord();
    }
-   spawnTimeRemaining = spawnTimeRemaining - 0.03;
+   spawnTimeRemaining = spawnTimeRemaining - 0.025;
 
    if(speedIncreaseTimeRemaining <=0 ){
       spawnInterval -= spawnIntervalDecrease;
@@ -273,7 +273,7 @@ function updateLostBoard(){
       document.querySelector("#highestPoints").textContent = `${score}`;
       document.querySelector("#highestPAccuracy").textContent = `${accuracy}%`;
    }
-   else if(Number(highestPoints)>=score) {
+   else if(highestPoints != null && Number(highestPoints)>=score) {
       document.querySelector("#highestPoints").textContent = `${highestPoints}`;
       document.querySelector("#highestPAccuracy").textContent = `${highestPAccuracy}%`;
    }
@@ -300,7 +300,7 @@ function updateLostBoard(){
       document.querySelector("#highestAPoints").textContent = `${score}`;
       document.querySelector("#highestAccuracy").textContent = `${accuracy}%`;
    }
-   else if(Number(highestAccuracy)>=accuracy) {
+   else if(highestPoints != null && Number(highestAccuracy)>=accuracy) {
       document.querySelector("#highestAPoints").textContent = `${highestAPoints}`;
       document.querySelector("#highestAccuracy").textContent = `${highestAccuracy}%`;
    }
